@@ -41,7 +41,6 @@ class UserStore {
   }
   setAddresses(addresses) {
     this.addresses = addresses;
-    // Cookies.set("addresses", JSON.stringify(addresses), { expires: 1 });
     setLocalStorage("addresses", addresses);
   }
   clearFavs() {
