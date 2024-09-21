@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 *{
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
 }
 
@@ -309,7 +309,7 @@ header{
       img{
         background-size: cover;
       }
-      div{
+      .div{
         background-color: #FC8A06;
         width: 100%;
         height: 20%;
@@ -320,7 +320,7 @@ header{
         align-items: center;
         text-align: center;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 14px;
       }
     }
   }
@@ -483,4 +483,284 @@ footer{
     height: 75px;
     background-color: #03081F;
   }
+}
+
+.become {
+  background: linear-gradient(245.7deg, rgba(255, 255, 255, 0) 0.94%, rgba(3, 8, 31, 0.19) 51.68%, rgba(3, 8, 31, 0.89) 87.9%);
+  background-image: url('./assets/images/becomeChef\ \(1\).png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 715px;
+  padding: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  .top-block {
+    width: 288px;
+    height: 65px;
+    border-radius: 0px 0px 12px 12px;
+    background-color: white;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+  }
+
+  
+  .get-started-block {
+    position: absolute;
+    flex-shrink: 0;
+    bottom: 80px;
+    button {
+      width: 205px;
+      border-radius: 120px;
+      font-size: 18px;
+      background-color: #FC8A06;
+      color: white;
+      height: 52px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    p {
+      margin: 10px;
+    }
+    
+    .yellow-text {
+      color: #FC8A06;
+      font-family: "Poppins", sans-serif;
+      font-size: 24px;
+    }
+    
+    .main-text {
+      color: white;
+      font-size: 44px;
+      line-height: 66px;
+    }
+  }
+}
+
+
+.seacrh-block{
+  margin: auto;
+  width: 1270px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  .title{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 48px;
+  }
+  .search-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    max-width: 250px; /* Adjust the width as per your design */
+    .search-input {
+      width: 100%;
+      padding: 12px 20px 12px 40px; /* Add padding-left to make space for the icon */
+      border-radius: 25px; /* Rounded input */
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+    }
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #ccc; /* Adjust icon color */
+    }
+  }
+  
+  input{
+    width: 250px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1px solid #03081F;
+    padding: 15px 20px;
+    font-size: 14px;
+    outline: none;
+    &::placeholder{
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+.mini-filter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background-color: #FC8A06;
+  color: white;
+  font-weight: 600;
+  .filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1270px;
+    width: 1270px;
+    .element{
+      cursor: pointer;
+      width: 125px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .active{
+      background-color: #03081F;
+      border-radius: 100px;
+    } 
+  }
+}
+
+
+.d-block{
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-between;
+  .discount-block{
+    width: 32%;
+    height: 330px;
+    position: relative;
+    .top-text{
+      color: white;
+      background-color: black;
+      border-radius: 0px 0px 12px 12px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 75px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-right: 40px;
+    }
+    .bottom-text{
+      position: absolute;
+      flex-shrink: 0;
+      bottom: 20px;
+      left: 25px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .add{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 45px;
+      background-color: rgb(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+    .yellow-text {
+      color: #FC8A06;
+      font-family: "Poppins", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .main-text {
+      color: white;
+      font-size: 28px;
+      font-weight: 600;
+    }
+  }
+  .dis1 {
+    background: linear-gradient(245.7deg, rgba(255, 255, 255, 0) 0.94%, rgba(3, 8, 31, 0.19) 51.68%, rgba(3, 8, 31, 0.89) 87.9%), 
+                url("./assets/images/discount1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .dis2 {
+    background: linear-gradient(245.7deg, rgba(255, 255, 255, 0) 0.94%, rgba(3, 8, 31, 0.19) 51.68%, rgba(3, 8, 31, 0.89) 87.9%), 
+                url("./assets/images/discount2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .dis3 {
+    background: linear-gradient(245.7deg, rgba(255, 255, 255, 0) 0.94%, rgba(3, 8, 31, 0.19) 51.68%, rgba(3, 8, 31, 0.89) 87.9%), 
+                url("./assets/images/discount3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+}
+
+
+.dishes{
+  display: flex;
+  flex-direction: column;
+  max-width: 1330px;
+  h2{
+    margin-top: 50px;
+  }
+  .dish{
+    width: 31%;
+    display: flex;
+    padding: 10px;
+    border: 1px solid #0000001A;
+    box-shadow: 5px 5px 34px 0px #00000040;
+    border-radius: 12px;
+    margin-right: 30px;
+    margin-top: 20px;
+    .dish-name{
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .dish-price{
+      font-weight: 700;
+    }
+    .right-block{
+      position: relative;
+      width: 220px;
+      height: 180px;
+      border-radius: 12px;
+      background-image: url("./assets/images/Carbonara.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      .add{
+        position: absolute;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-left-radius: 20px;
+        background-color: rgb(255, 255, 255, 0.9);
+        cursor: pointer;
+        img{
+          width: 48px;
+          height: 48px;
+        }
+      }
+    }
+  }
+}
+.df{
+  display: flex;
+  flex-wrap: wrap;
 }

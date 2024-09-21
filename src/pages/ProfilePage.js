@@ -65,10 +65,15 @@ const ProfilePage = observer(() => {
     fetch();
   };
 
+  const logOut = () => {
+    window.location.reload();
+    userStore.clearUser();
+  };
+
   return (
     <div className="container">
       {userStore.user.name}
-      <button onClick={() => userStore.clearUser()}>Log out</button>
+      <button onClick={logOut}>Log out</button>
     </div>
   );
 });

@@ -42,7 +42,8 @@ const Restaurants = observer(({ h2_text }) => {
         {objects.map((o, i) => (
           <div className="rest-block" key={i}>
             <img src={example} alt="chef_picture" />
-            <div>{o.name}</div>
+            {/* <p className="imgbk"></p> */}
+            <div className="div">{o.name}</div>
           </div>
         ))}
       </div>

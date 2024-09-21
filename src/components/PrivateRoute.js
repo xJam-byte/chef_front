@@ -9,7 +9,7 @@ const PrivateRoute = observer(({ element: Component, ...rest }) => {
   return isAuthenticated ? (
     Component
   ) : (
-    <Navigate to="/" state={{ from: location }} />
+    <Navigate to="/auth" state={{ from: location }} />
   );
 });
 

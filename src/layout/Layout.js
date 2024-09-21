@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { ToastContainer } from "react-toastify";
@@ -12,9 +12,15 @@ import userStore from "../store/UserStore";
 
 const Layout = () => {
   const isAuth = userStore.user !== undefined;
+  // const isAuth = true;
   const location = useLocation();
+  const [isChef, setIsChef] = useState(false);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (isAuth) {
+      userStore.user.role === "chef" ? setIsChef(true) : setIsChef(false);
+    }
+  }, [isAuth]);
   const authNavigate = () => {
     navigate("auth");
   };
@@ -54,15 +60,21 @@ const Layout = () => {
               <Link to="/">Home</Link>
             </li>
             <li
-              className={location.pathname === "/top" ? "active" : "inactive"}
+              className={
+                location.pathname === "/dishes" ? "active" : "inactive"
+              }
             >
-              <Link to="/top">Top dishes</Link>
+              <Link to="/dishes">Dishes</Link>
             </li>
-            <li
-              className={location.pathname === "/chefs" ? "active" : "inactive"}
-            >
-              <Link to="/chefs">Chefs</Link>
-            </li>
+            {isChef ? (
+              <li
+                className={
+                  location.pathname === "/create_dish" ? "active" : "inactive"
+                }
+              >
+                <Link to="create_dish">Create dish</Link>
+              </li>
+            ) : null}
             <li
               className={
                 location.pathname === "/track_order" ? "active" : "inactive"
