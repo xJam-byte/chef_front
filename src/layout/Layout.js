@@ -3,24 +3,51 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 import discount_icon from "../assets/icons/discount_icon.png";
 import Location_icon from "../assets/icons/Location_icon.svg";
 import Shopping_basket from "../assets/icons/Shopping_basket.svg";
 import Male_user from "../assets/icons/Male_user.png";
 import userStore from "../store/UserStore";
+import axios from "axios";
+import dishesStore from "../store/DishStore";
 
-const Layout = () => {
-  const isAuth = userStore.user !== undefined;
+const Layout = observer(() => {
+  const [isAuth, setIsAuth] = useState(false);
   // const isAuth = true;
   const location = useLocation();
   const [isChef, setIsChef] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (isAuth) {
-      userStore.user.role === "chef" ? setIsChef(true) : setIsChef(false);
-    }
+    const checkAuthAndFetch = async () => {
+      setIsAuth(userStore.user !== undefined);
+      if (isAuth && userStore.user && userStore.user.user_id) {
+        if (userStore.user.role === "chef") {
+          setIsChef(true);
+          await fetchData();
+        } else {
+          setIsChef(false);
+        }
+      }
+    };
+
+    checkAuthAndFetch();
   }, [isAuth]);
+
+  async function fetchData() {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/chef/getChef/" + userStore.user.user_id
+      );
+      if (response.data !== undefined) {
+        userStore.setChef(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching chef data:", error);
+    }
+  }
   const authNavigate = () => {
     navigate("auth");
   };
@@ -43,12 +70,16 @@ const Layout = () => {
                 <p className="change_location-btn">Change Location</p>
               </div>
 
-              <div className="cart-block">
+              <div className="cart-block" onClick={() => navigate("/dishes")}>
                 <div className="cart-icon cart-sub-block">
                   <img src={Shopping_basket} alt="cart icon" />
                 </div>
-                <div className="cart-count cart-sub-block">23 items</div>
-                <div className="cart-price cart-sub-block">79.89 tng</div>
+                <div className="cart-count cart-sub-block">
+                  {dishesStore.basket.length} items
+                </div>
+                <div className="cart-price cart-sub-block">
+                  {dishesStore.totalOfBasket.toFixed(2)} €
+                </div>
               </div>
             </div>
           </div>
@@ -109,6 +140,6 @@ const Layout = () => {
       <ToastContainer />
     </main>
   );
-};
+});
 
 export default Layout;

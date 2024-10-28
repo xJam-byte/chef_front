@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
 import Cookies from "js-cookie";
 import { getLocalStorage, setLocalStorage } from "../utils/localstorage";
-
 class UserStore {
   user = undefined;
+  chef = undefined;
   token = "";
   favourites = [];
   addresses = [];
@@ -24,7 +24,16 @@ class UserStore {
       // this.addresses = JSON.parse(addrs);
     }
   }
-
+  loadChefFromCookies() {
+    const userCookie = Cookies.get("chef");
+    if (userCookie) {
+      this.chef = JSON.parse(userCookie);
+    }
+  }
+  async setChef(chef) {
+    this.chef = chef;
+    Cookies.set("chef", JSON.stringify(chef), { expires: 1 });
+  }
   clearUser() {
     this.user = undefined;
     Cookies.remove("user");

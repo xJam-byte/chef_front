@@ -36,6 +36,9 @@ const Auth = () => {
       userStore.setUser(responce.data[1]);
       userStore.setToken(responce.data[0]);
       notifySuccess("Вы успешно зарегистрировались!");
+      console.log(responce.data[1]);
+
+      window.location.reload();
       navigate("/");
     } else {
       notifyError("Произошла ошибка!");
@@ -63,6 +66,7 @@ const Auth = () => {
         userStore.setUser(responce.data[1]);
         userStore.setToken(responce.data[0]);
         notifySuccess("Вы успешно вошли!");
+        window.location.reload();
         navigate("/");
       }
     } catch (e) {

@@ -8,12 +8,25 @@ import ProfilePage from "./pages/ProfilePage";
 import userStore from "./store/UserStore";
 import Layout from "./layout/Layout";
 import Auth from "./pages/AuthPage";
-import DishesPage from "./pages/DishesPage";
 import ChefPage from "./pages/ChefPage";
+import CreateDish from "./pages/CreateDish";
+import chefStore from "./store/ChefStore";
+import ChefProfile from "./pages/ChefProfile";
+import axios from "axios";
+import dishesStore from "./store/DishStore";
+import PreOrder from "./pages/PreOrder";
+import BecomeChef from "./pages/BecomeChef";
 
 function App() {
   useEffect(() => {
     userStore.loadUserFromCookies();
+    userStore.loadChefFromCookies();
+    chefStore.setChefs();
+    async function fetchDishes() {
+      const result = await axios.get("http://localhost:5000/dishes");
+      dishesStore.setDishes(result.data);
+    }
+    fetchDishes();
   }, []);
 
   return (
@@ -23,11 +36,15 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route
             path="/dishes"
-            element={<PrivateRoute element={<DishesPage />} />}
+            element={<PrivateRoute element={<PreOrder />} />}
           />
           <Route
             path="/chefs"
             element={<PrivateRoute element={<ChefPage />} />}
+          />
+          <Route
+            path="/create_dish"
+            element={<PrivateRoute element={<CreateDish />} />}
           />
           <Route
             path="/track_order"
@@ -38,6 +55,11 @@ function App() {
             path="/profile"
             element={<PrivateRoute element={<ProfilePage />} />}
           />
+          <Route
+            path="/become_chef"
+            element={<PrivateRoute element={<BecomeChef />} />}
+          />
+          <Route path="/chefs/:chefId" element={<ChefProfile />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

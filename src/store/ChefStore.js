@@ -1,3 +1,4 @@
+import axios from "axios";
 import { makeAutoObservable } from "mobx";
 
 class ChefStore {
@@ -11,8 +12,9 @@ class ChefStore {
     return this.chefs;
   }
 
-  setChefs(chefs) {
-    this.chefs = chefs;
+  async setChefs() {
+    const c = await axios.get("http://localhost:5000/chef/getAll");
+    this.chefs = c.data;
   }
 }
 
