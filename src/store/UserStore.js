@@ -4,6 +4,7 @@ import { getLocalStorage, setLocalStorage } from "../utils/localstorage";
 class UserStore {
   user = undefined;
   chef = undefined;
+  addr = "";
   token = "";
   favourites = [];
   addresses = [];
@@ -69,6 +70,19 @@ class UserStore {
   }
   addToAddresses(item) {
     this.addresses.push(item);
+  }
+
+  setMiniAddr(addr) {
+    this.addr = addr;
+    console.log("setMiniAddr", addr);
+    Cookies.set("miniaddr", JSON.stringify(addr), { expires: 1 });
+  }
+
+  loadfrommini() {
+    const userCookie = Cookies.get("miniaddr");
+    if (userCookie) {
+      this.addr = JSON.parse(userCookie);
+    }
   }
 }
 

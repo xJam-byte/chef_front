@@ -16,11 +16,13 @@ import axios from "axios";
 import dishesStore from "./store/DishStore";
 import PreOrder from "./pages/PreOrder";
 import BecomeChef from "./pages/BecomeChef";
+import TrackOrder from "./pages/TrackOrder";
 
 function App() {
   useEffect(() => {
     userStore.loadUserFromCookies();
     userStore.loadChefFromCookies();
+    userStore.loadfrommini();
     chefStore.setChefs();
     async function fetchDishes() {
       const result = await axios.get("http://localhost:5000/dishes");
@@ -48,7 +50,7 @@ function App() {
           />
           <Route
             path="/track_order"
-            element={<PrivateRoute element={<></>} />}
+            element={<PrivateRoute element={<TrackOrder />} />}
           />
           <Route path="/auth" element={<Auth />} />
           <Route

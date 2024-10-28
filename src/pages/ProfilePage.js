@@ -1,24 +1,32 @@
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import userStore from "../store/UserStore";
 import profile from "../assets/images/profile.png";
 import Modal from "../components/Modal";
-import axios from "axios";
+import dishesStore from "../store/DishStore";
 
 const ProfilePage = observer(() => {
+  // Modal states
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
   const [isOrdersModalOpen, setOrdersModalOpen] = useState(false);
   const [isAvatarModalOpen, setAvatarModalOpen] = useState(false);
+
+  // Profile data states
   const [selectedFile, setSelectedFile] = useState(null);
   const [name, setName] = useState(userStore.user.name || "");
   const [email, setEmail] = useState(userStore.user.email || "");
   const [phone, setPhone] = useState(userStore.user.phone_number || "");
 
+  // Order history state
+  const [orders, setOrders] = useState([]);
+
   const logOut = () => {
     window.location.reload();
     userStore.clearUser();
   };
+
   const handleAvatarUpload = async (e) => {
     e.preventDefault();
     if (!selectedFile) return;
@@ -45,8 +53,8 @@ const ProfilePage = observer(() => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/user-customer/update/contacts", {
-        name: name,
-        email: email,
+        name,
+        email,
         phone_number: phone,
       });
       userStore.user.name = name;
@@ -59,9 +67,25 @@ const ProfilePage = observer(() => {
     }
   };
 
+  const fetchOrderHistory = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/order/${userStore.user.user_id}/history`
+      );
+      setOrders(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    }
+  };
+
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
+
+  useEffect(() => {
+    if (isOrdersModalOpen) fetchOrderHistory();
+  }, [isOrdersModalOpen]);
 
   return (
     <div className="profile-container container">
@@ -102,9 +126,11 @@ const ProfilePage = observer(() => {
           )}
         </p>
         {userStore.user.role === "chef" ? (
-          <p>Total dishes: {userStore.user.totalDishes || "0"}</p>
+          <>
+            <p>Total dishes: {userStore.user.totalDishes || "0"}</p>
+            <p>Rating: ★★★★☆</p>
+          </>
         ) : null}
-        {userStore.user.role === "chef" ? <p>Rating: ★★★★☆</p> : null}
       </div>
 
       <div className="profile-actions">
@@ -125,6 +151,7 @@ const ProfilePage = observer(() => {
         </button>
       </div>
 
+      {/* Modals */}
       <Modal
         isOpen={isAvatarModalOpen}
         onClose={() => setAvatarModalOpen(false)}
@@ -186,7 +213,40 @@ const ProfilePage = observer(() => {
         onClose={() => setOrdersModalOpen(false)}
       >
         <h3>Order History</h3>
-        <p>No orders yet.</p>
+        {orders.length > 0 ? (
+          <div style={{ width: "600px" }} className="order-cards-container df">
+            {orders.map((order) => (
+              <div className="order-card">
+                <h4>Order ID: {order.order_id}</h4>
+                <p>Total: ${order.total_price}</p>
+                <p>Status: {order.status}</p>
+                <ul className="order-details">
+                  {order.orderDetails.map((detail) => {
+                    const dish = dishesStore.dishes.find(
+                      (d) => d.dish_id === detail.dishId
+                    );
+
+                    return (
+                      <li key={detail.order_detail_id} className="order-item">
+                        {dish ? (
+                          <>
+                            <span className="dish-name">{dish.name}</span> -
+                            Quantity:{" "}
+                            <span className="quantity">{detail.quantity}</span>
+                          </>
+                        ) : (
+                          <span>Dish details unavailable</span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No orders found.</p>
+        )}
       </Modal>
     </div>
   );

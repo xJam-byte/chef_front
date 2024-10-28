@@ -5,7 +5,8 @@ import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
-import discount_icon from "../assets/icons/discount_icon.png";
+import google from "../assets/images/googleplay-logo.png";
+import apple from "../assets/images/apple.png";
 import Location_icon from "../assets/icons/Location_icon.svg";
 import Shopping_basket from "../assets/icons/Shopping_basket.svg";
 import Male_user from "../assets/icons/Male_user.png";
@@ -58,15 +59,19 @@ const Layout = observer(() => {
         {location.pathname === "/auth" ? null : (
           <div className="header">
             <div className="discount-block">
-              <img src={discount_icon} alt="promo icon" />
+              {/* <img src={discount_icon} alt="promo icon" />
               <p>
                 Get 5% Off your first order,<span> Promo: ORDER5</span>
-              </p>
+              </p> */}
             </div>
             <div className="right-block">
               <div className="location-block">
                 <img src={Location_icon} alt="location icon" />
-                <p>Regent Street, A4, A4201, London</p>
+                <p>
+                  {userStore.addr
+                    ? userStore.addr
+                    : "Regent Street, A4, A4201, London"}
+                </p>
                 <p className="change_location-btn">Change Location</p>
               </div>
 
@@ -134,9 +139,56 @@ const Layout = observer(() => {
       </header>
       <Outlet />
       <footer>
-        <div className="first-block"></div>
-        <div className="last-block"></div>
+        <div className="first-block">
+          <div className="container">
+            <div className="left-section">
+              <h2>Order.uk</h2>
+              <div className="app-links">
+                <img src={apple} alt="App Store" />
+                <img src={google} alt="Google Play" />
+              </div>
+              <p>Company # 490039-445, Registered with House of companies.</p>
+            </div>
+            <div className="middle-section">
+              <h3>Get Exclusive Deals in your Inbox</h3>
+              <div className="subscription">
+                <input type="email" placeholder="youremail@gmail.com" />
+                <button>Subscribe</button>
+              </div>
+              <p>
+                We won't spam, read our <a href="#">policy</a>
+              </p>
+            </div>
+            <div className="right-section">
+              <div className="links">
+                <h4>Legal Pages</h4>
+                <a href="#">Terms and conditions</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookies</a>
+                <a href="#">Modern Slavery Statement</a>
+              </div>
+              <div className="links">
+                <h4>Important Links</h4>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href="#">Get help</a>
+                <a href="#">Add your restaurant</a>
+                <a href="#">Sign up to deliver</a>
+                <a href="#">Create a business account</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="last-block">
+          <p>Order.uk Copyright 2024, All Rights Reserved.</p>
+          <div className="bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms</a>
+            <a href="#">Pricing</a>
+            <a href="#">Do not sell or share my personal information</a>
+          </div>
+        </div>
       </footer>
+
       <ToastContainer />
     </main>
   );
