@@ -6,9 +6,9 @@ import Basket from "../components/Basket";
 import search_icon from "../assets/icons/Search More.svg";
 import menu from "../assets/icons/menu.png";
 import DishCardOrder from "../components/DishCardOrder";
+import chefStore from "../store/ChefStore";
 
 const PreOrder = observer(() => {
-  const [preferences, setPreferences] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDish, setSelectedDish] = useState(null);
@@ -56,6 +56,10 @@ const PreOrder = observer(() => {
     setSelectedDish(dish);
     setShowModal(true);
   };
+
+  const ccf = selectedDish
+    ? chefStore.chefs.find((chef) => chef.chef_id === selectedDish.chefId)
+    : null;
   return (
     <>
       <div className="seacrh-block">
@@ -139,7 +143,8 @@ const PreOrder = observer(() => {
                 Type: <span className="separator">{selectedDish.type}</span>
               </p>
               <p>
-                Chef: <span className="separator">{selectedDish.chef}</span>
+                Chef:{" "}
+                <span className="separator">{ccf ? ccf.user.name : null}</span>
               </p>
               <p>
                 Ingredients:{" "}

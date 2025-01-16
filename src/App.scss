@@ -1390,7 +1390,6 @@ footer {
   background-color: #FBFBFB;
   border: 1px solid #BCBCBC;
   border-radius: 12px;
-  padding: 0 0 0 34px;
   width: 230px;
   .menu-title{
     display: flex;
@@ -1403,9 +1402,15 @@ footer {
   ul {
     list-style: none;
     padding: 0;
-    
+    .active{
+      background-color: #03081F;
+      color: white;
+      padding: 10px 20px;
+    }
+
     li {
       padding: 10px 0;
+      padding-left: 15px;
       font-weight: bold;
       cursor: pointer;
       color: #333;
@@ -1511,7 +1516,7 @@ $shadow-color: rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px $shadow-color;
-  max-width: 500px;
+  width: 330px;
   margin: 0 auto;
   color: $text-color;
 

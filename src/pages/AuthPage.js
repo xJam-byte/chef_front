@@ -107,7 +107,7 @@ const Auth = () => {
             </label>
             <PasswordInput
               handleChange={passwordHandler}
-              placeholder="Create a strong password"
+              placeholder="Enter your password"
             />
           </div>
           <div className="form-grou">
